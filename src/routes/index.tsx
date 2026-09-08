@@ -119,7 +119,9 @@ function Portfolio() {
         </a>
       </section>
 
-      <section id="portfolio" className="section-shell scroll-mt-20">
+      <section id="portfolio" className="section-shell scroll-mt-20 relative">
+        <EdgeLines side="left" />
+        <EdgeLines side="right" />
         <div className="mx-auto max-w-[1240px]">
           <div className="mb-14 flex items-end justify-between border-b border-border pb-6 sm:mb-20">
             <div>
@@ -146,17 +148,15 @@ function Portfolio() {
                   </div>
                   <span className="absolute left-4 top-4 text-[0.62rem] tracking-[0.2em] text-foreground/65 sm:left-7 sm:top-6">FILM {film.number}</span>
                 </div>
-                <div className="mt-4 flex items-center justify-between">
-                  <h3 className="font-display text-xl sm:text-2xl">{film.title}</h3>
-                  <span className="text-[0.62rem] uppercase tracking-[0.2em] text-primary">Play film</span>
-                </div>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="about" className="section-shell scroll-mt-20 border-y border-border bg-surface">
+      <section id="about" className="section-shell scroll-mt-20 border-y border-border bg-surface relative">
+        <EdgeLines side="left" />
+        <EdgeLines side="right" />
         <div className="mx-auto grid max-w-[1180px] gap-14 md:grid-cols-[1.05fr_.95fr] md:items-center lg:gap-24">
           <div>
             <span className="section-label">about</span>
@@ -173,7 +173,9 @@ function Portfolio() {
         </div>
       </section>
 
-      <section id="services" className="section-shell scroll-mt-20">
+      <section id="services" className="section-shell scroll-mt-20 relative">
+        <EdgeLines side="left" />
+        <EdgeLines side="right" />
         <div className="mx-auto max-w-[1240px]">
           <span className="section-label">services</span>
           <h2 className="section-title">What I offer.</h2>
@@ -190,7 +192,9 @@ function Portfolio() {
         </div>
       </section>
 
-      <section id="contact" className="section-shell scroll-mt-20 border-t border-border bg-surface">
+      <section id="contact" className="section-shell scroll-mt-20 border-t border-border bg-surface relative">
+        <EdgeLines side="left" />
+        <EdgeLines side="right" />
         <div className="mx-auto grid max-w-[1180px] gap-16 lg:grid-cols-[.8fr_1.2fr] lg:gap-24">
           <div>
             <span className="section-label">contact</span>
