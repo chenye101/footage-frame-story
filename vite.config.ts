@@ -8,7 +8,7 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 // GitHub Pages project sites are served under a subdirectory (e.g. /repo-name/).
 // Set VITE_BASE_PATH in the workflow or to "/" for a custom domain/user site.
-const basePath = process.env.VITE_BASE_PATH?.replace(/\/$/, "") || "/";
+const basePath = process.env["VITE_BASE_PATH"]?.replace(/\/$/, "") || "/";
 const base = basePath === "/" ? "/" : `${basePath}/`;
 
 export default defineConfig({
