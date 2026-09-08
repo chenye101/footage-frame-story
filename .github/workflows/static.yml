@@ -24,14 +24,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
       - name: Install dependencies
         run: npm install
       - name: Build
         run: npm run build
+        env:
+          # GitHub Pages project sites are served under a subdirectory.
+          # This is passed to vite.config.ts so asset links and the router base path are correct.
+          VITE_BASE_PATH: ${{ steps.pages.outputs.base_path }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./dist/client
 
   deploy:
     environment:
