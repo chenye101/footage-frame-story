@@ -309,7 +309,7 @@ function Portfolio() {
             <div className="mt-10 flex items-center gap-4"><span className="h-px w-14 bg-primary" /><span className="text-[0.62rem] uppercase tracking-[0.24em] text-muted-foreground">Based out west</span></div>
           </div>
           <figure className="relative mx-auto max-w-md md:max-w-none">
-            <img src={aboutImage} alt="Cinematographer Cheyne Hoesli working behind the camera" width={1024} height={1408} loading="lazy" className="aspect-[4/5] w-full object-cover grayscale" />
+            <img src={aboutAsset.url} alt="Cinematographer Cheyne Hoesli working behind the camera" width={1024} height={1408} loading="lazy" className="aspect-[4/5] w-full object-cover grayscale" />
             <figcaption className="absolute -bottom-5 -left-4 bg-primary px-4 py-3 text-[0.6rem] uppercase tracking-[0.2em] text-primary-foreground sm:-left-7">Create what moves you.</figcaption>
           </figure>
         </div>
