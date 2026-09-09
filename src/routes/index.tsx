@@ -165,7 +165,7 @@ function PortfolioVideo({ youtubeId, number, ratio }: {
           src={`https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&controls=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&color=white`}
           allow="autoplay; encrypted-media; fullscreen"
           allowFullScreen
-          title={title}
+          title={`Portfolio film ${number}`}
           loading="lazy"
           style={{
             position: "absolute",
