@@ -190,7 +190,7 @@ function PortfolioVideo({ youtubeId, number, ratio }: {
           {/* Thumbnail using YouTube's auto-generated maxres thumbnail */}
           <img
             src={`https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`}
-            alt={title}
+            alt={`Portfolio film ${number}`}
             style={{
               width: "100%",
               height: "100%",
