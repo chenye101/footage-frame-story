@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import heroImage from "@/assets/cheyne-hero.jpg";
+import { useEffect, useRef } from "react";
 import aboutImage from "@/assets/cheyne-about.jpg";
 
 export const Route = createFileRoute("/")({
@@ -23,13 +23,16 @@ export const Route = createFileRoute("/")({
   component: Portfolio,
 });
 
+// Video IDs extracted from YouTube URLs
+const HERO_VIDEO_ID = "g8MqqhLH0kE";
+
 const films = [
-  { number: "01", title: "Motion / Automotive", position: "object-center" },
-  { number: "02", title: "Salt / Coastal", position: "object-left" },
-  { number: "03", title: "After Dark / Music", position: "object-right" },
-  { number: "04", title: "Open Road / Travel", position: "object-bottom" },
-  { number: "05", title: "Made by Hand / Brand", position: "object-top" },
-  { number: "06", title: "In the Moment / Event", position: "object-center" },
+  { number: "01", title: "Motion / Automotive", youtubeId: "uL3k2z38fk4", ratio: "16/9" },
+  { number: "02", title: "Salt / Coastal",       youtubeId: "35CHXZV8F-M", ratio: "4/3" },
+  { number: "03", title: "After Dark / Music",   youtubeId: "KSOsH5D4me4", ratio: "16/9" },
+  { number: "04", title: "Open Road / Travel",   youtubeId: "XvXk3DpMs8c", ratio: "4/3" },
+  { number: "05", title: "Made by Hand / Brand", youtubeId: "tlOJiFOR1m4", ratio: "16/9" },
+  { number: "06", title: "In the Moment / Event",youtubeId: "9W7timoYmpI", ratio: "4/3" },
 ];
 
 const services = [
@@ -60,14 +63,6 @@ function Mark() {
   return <span className="font-display text-lg italic text-foreground">fbc.</span>;
 }
 
-function PlayIcon() {
-  return (
-    <svg viewBox="0 0 32 32" aria-hidden="true" className="h-8 w-8 fill-current">
-      <path d="M10.5 6.8v18.4L25 16 10.5 6.8Z" />
-    </svg>
-  );
-}
-
 function EdgeLines({ side }: { side: "left" | "right" }) {
   return (
     <svg
@@ -83,9 +78,168 @@ function EdgeLines({ side }: { side: "left" | "right" }) {
   );
 }
 
+// Muted looping hero video (4:3 aspect ratio, cropped to fill 16:9 viewport)
+function HeroVideo() {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {/* 
+        The hero clip is 4:3. We need it to fill a widescreen viewport.
+        Strategy: make the iframe taller than the container and center it.
+        We use a wrapper that's wider than 100% to simulate cover behavior.
+      */}
+      <div
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          // 4:3 video needs to be wider to fill 16:9 space
+          // width = height * (16/9) / (4/3) = height * 1.333
+          // To fill height: set width to 177.78% of height equivalent
+          // Easiest: make it very large and center it
+          width: "177.78vh",   // 16:9 of viewport height
+          height: "133.33vh",  // 4:3 needs more height to fill width
+          minWidth: "133.33vw",
+          minHeight: "100vh",
+          transform: "translate(-50%, -50%)",
+          pointerEvents: "none",
+        }}
+      >
+        <iframe
+          src={`https://www.youtube.com/embed/${HERO_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${HERO_VIDEO_ID}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=1`}
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+          title="Hero background video"
+          style={{
+            width: "100%",
+            height: "100%",
+            border: "none",
+            pointerEvents: "none",
+          }}
+        />
+      </div>
+      {/* Dark overlay to maintain text legibility */}
+      <div className="absolute inset-0 bg-cinematic-overlay" />
+    </div>
+  );
+}
+
+// Portfolio video player using YouTube embed with Plyr-style custom overlay
+function PortfolioVideo({ youtubeId, title, number, ratio }: {
+  youtubeId: string;
+  title: string;
+  number: string;
+  ratio: "16/9" | "4/3";
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  const handlePlay = () => {
+    if (overlayRef.current) {
+      overlayRef.current.style.opacity = "0";
+      overlayRef.current.style.pointerEvents = "none";
+    }
+    // Send play command to YouTube iframe
+    if (iframeRef.current?.contentWindow) {
+      iframeRef.current.contentWindow.postMessage(
+        JSON.stringify({ event: "command", func: "playVideo" }),
+        "*"
+      );
+    }
+  };
+
+  const aspectStyle =
+    ratio === "4/3"
+      ? { aspectRatio: "4/3" }
+      : { aspectRatio: "16/9" };
+
+  return (
+    <article className="group">
+      <div
+        ref={containerRef}
+        className="relative overflow-hidden bg-card"
+        style={aspectStyle}
+      >
+        {/* YouTube iframe — loaded immediately but paused */}
+        <iframe
+          ref={iframeRef}
+          src={`https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&controls=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&color=white`}
+          allow="autoplay; encrypted-media; fullscreen"
+          allowFullScreen
+          title={title}
+          loading="lazy"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            border: "none",
+          }}
+        />
+
+        {/* Custom overlay — hides YouTube UI until user clicks play */}
+        <div
+          ref={overlayRef}
+          onClick={handlePlay}
+          style={{
+            position: "absolute",
+            inset: 0,
+            transition: "opacity 0.4s ease",
+            cursor: "pointer",
+          }}
+        >
+          {/* Thumbnail using YouTube's auto-generated maxres thumbnail */}
+          <img
+            src={`https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`}
+            alt={title}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              opacity: 0.45,
+              filter: "grayscale(1)",
+              transition: "opacity 0.7s ease, transform 0.7s ease",
+            }}
+            className="group-hover:opacity-65 group-hover:scale-[1.02]"
+          />
+
+          {/* Film overlay gradient */}
+          <div className="absolute inset-0 bg-film-overlay" />
+
+          {/* Play button */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span
+              className="flex h-16 w-16 items-center justify-center rounded-full border border-foreground/50 text-foreground transition group-hover:border-primary group-hover:text-primary sm:h-20 sm:w-20"
+              style={{ backdropFilter: "blur(4px)", background: "rgba(0,0,0,0.3)" }}
+            >
+              <svg viewBox="0 0 32 32" aria-hidden="true" className="h-8 w-8 fill-current">
+                <path d="M10.5 6.8v18.4L25 16 10.5 6.8Z" />
+              </svg>
+            </span>
+          </div>
+
+          {/* Film label */}
+          <span className="absolute left-4 top-4 text-[0.62rem] tracking-[0.2em] text-foreground/65 sm:left-7 sm:top-6">
+            FILM {number}
+          </span>
+        </div>
+      </div>
+
+      {/* Title below video */}
+      <div className="mt-4 flex items-center gap-4 px-1">
+        <span className="text-[0.6rem] tracking-[0.2em] text-muted-foreground">{number}</span>
+        <span className="text-[0.75rem] uppercase tracking-[0.15em] text-foreground/70">{title}</span>
+      </div>
+    </article>
+  );
+}
+
 function Portfolio() {
   return (
     <main className="overflow-hidden bg-background text-foreground">
+      {/* Plyr CSS for custom player skin */}
+      <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/90 backdrop-blur-md">
         <nav className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 md:px-10" aria-label="Main navigation">
           <a href="#home" className="font-display text-base font-semibold text-foreground md:text-lg">
@@ -103,9 +257,9 @@ function Portfolio() {
         </nav>
       </header>
 
+      {/* ── HERO ── */}
       <section id="home" className="relative flex min-h-[92svh] items-center justify-center border-b border-border">
-        <img src={heroImage} alt="A cinematographer filming at the coast" width={1920} height={1080} className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-cinematic-overlay" />
+        <HeroVideo />
         <EdgeLines side="left" />
         <EdgeLines side="right" />
         <div className="relative z-10 flex flex-col items-center px-6 pt-16 text-center">
@@ -119,6 +273,7 @@ function Portfolio() {
         </a>
       </section>
 
+      {/* ── PORTFOLIO ── */}
       <section id="portfolio" className="section-shell scroll-mt-20 relative">
         <EdgeLines side="left" />
         <EdgeLines side="right" />
@@ -131,29 +286,20 @@ function Portfolio() {
             <Mark />
           </div>
           <div className="space-y-8 md:space-y-16">
-            {films.map((film, index) => (
-              <article key={film.number} className="group">
-                <div className="relative aspect-video overflow-hidden bg-card">
-                  <img
-                    src={index % 2 === 0 ? heroImage : aboutImage}
-                    alt=""
-                    width={index % 2 === 0 ? 1920 : 1024}
-                    height={index % 2 === 0 ? 1080 : 1408}
-                    loading="lazy"
-                    className={`h-full w-full object-cover opacity-45 grayscale transition duration-700 group-hover:scale-[1.02] group-hover:opacity-65 ${film.position}`}
-                  />
-                  <div className="absolute inset-0 bg-film-overlay" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="flex h-16 w-16 items-center justify-center rounded-full border border-foreground/50 text-foreground transition group-hover:border-primary group-hover:text-primary sm:h-20 sm:w-20"><PlayIcon /></span>
-                  </div>
-                  <span className="absolute left-4 top-4 text-[0.62rem] tracking-[0.2em] text-foreground/65 sm:left-7 sm:top-6">FILM {film.number}</span>
-                </div>
-              </article>
+            {films.map((film) => (
+              <PortfolioVideo
+                key={film.number}
+                youtubeId={film.youtubeId}
+                title={film.title}
+                number={film.number}
+                ratio={film.ratio as "16/9" | "4/3"}
+              />
             ))}
           </div>
         </div>
       </section>
 
+      {/* ── ABOUT ── */}
       <section id="about" className="section-shell scroll-mt-20 border-y border-border bg-surface relative">
         <EdgeLines side="left" />
         <EdgeLines side="right" />
@@ -173,6 +319,7 @@ function Portfolio() {
         </div>
       </section>
 
+      {/* ── SERVICES ── */}
       <section id="services" className="section-shell scroll-mt-20 relative">
         <EdgeLines side="left" />
         <EdgeLines side="right" />
@@ -192,6 +339,7 @@ function Portfolio() {
         </div>
       </section>
 
+      {/* ── CONTACT ── */}
       <section id="contact" className="section-shell scroll-mt-20 border-t border-border bg-surface relative">
         <EdgeLines side="left" />
         <EdgeLines side="right" />
