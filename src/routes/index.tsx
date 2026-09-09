@@ -124,9 +124,8 @@ function HeroVideo() {
 }
 
 // Portfolio video player using YouTube embed with Plyr-style custom overlay
-function PortfolioVideo({ youtubeId, title, number, ratio }: {
+function PortfolioVideo({ youtubeId, number, ratio }: {
   youtubeId: string;
-  title: string;
   number: string;
   ratio: "16/9" | "4/3";
 }) {
