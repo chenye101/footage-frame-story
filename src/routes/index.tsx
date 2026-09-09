@@ -279,7 +279,6 @@ function Portfolio() {
               <PortfolioVideo
                 key={film.number}
                 youtubeId={film.youtubeId}
-                title={film.title}
                 number={film.number}
                 ratio={film.ratio as "16/9" | "4/3"}
               />
