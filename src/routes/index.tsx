@@ -259,7 +259,7 @@ function Portfolio() {
         <EdgeLines side="left" />
         <EdgeLines side="right" />
         <div className="relative z-10 flex flex-col items-center px-6 pt-16 text-center">
-          <span className="mb-3 text-[0.68rem] uppercase tracking-[0.42em] text-primary">footage by</span>
+          <span className="mb-3 text-[0.72rem] font-bold uppercase tracking-[0.38em] text-primary">footage by</span>
           <h1 className="font-display text-5xl font-medium leading-none sm:text-7xl lg:text-8xl">Cheyne Hoesli</h1>
           <p className="mt-4 font-display text-2xl italic text-foreground/80 sm:text-3xl">pure cinema.</p>
         </div>
