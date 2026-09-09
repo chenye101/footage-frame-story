@@ -218,10 +218,6 @@ function PortfolioVideo({ youtubeId, title, number, ratio }: {
             </span>
           </div>
 
-          {/* Film label */}
-          <span className="absolute left-4 top-4 text-[0.62rem] tracking-[0.2em] text-foreground/65 sm:left-7 sm:top-6">
-            FILM {number}
-          </span>
         </div>
       </div>
 
