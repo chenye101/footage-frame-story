@@ -220,12 +220,6 @@ function PortfolioVideo({ youtubeId, title, number, ratio }: {
 
         </div>
       </div>
-
-      {/* Title below video */}
-      <div className="mt-4 flex items-center gap-4 px-1">
-        <span className="text-[0.6rem] tracking-[0.2em] text-muted-foreground">{number}</span>
-        <span className="text-[0.75rem] uppercase tracking-[0.15em] text-foreground/70">{title}</span>
-      </div>
     </article>
   );
 }
