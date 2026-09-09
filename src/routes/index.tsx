@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
-import aboutImage from "@/assets/cheyne-about.jpg";
+import aboutAsset from "@/assets/cheyne-about.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -124,9 +124,8 @@ function HeroVideo() {
 }
 
 // Portfolio video player using YouTube embed with Plyr-style custom overlay
-function PortfolioVideo({ youtubeId, title, number, ratio }: {
+function PortfolioVideo({ youtubeId, number, ratio }: {
   youtubeId: string;
-  title: string;
   number: string;
   ratio: "16/9" | "4/3";
 }) {
@@ -166,7 +165,7 @@ function PortfolioVideo({ youtubeId, title, number, ratio }: {
           src={`https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&controls=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&color=white`}
           allow="autoplay; encrypted-media; fullscreen"
           allowFullScreen
-          title={title}
+          title={`Portfolio film ${number}`}
           loading="lazy"
           style={{
             position: "absolute",
@@ -191,7 +190,7 @@ function PortfolioVideo({ youtubeId, title, number, ratio }: {
           {/* Thumbnail using YouTube's auto-generated maxres thumbnail */}
           <img
             src={`https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`}
-            alt={title}
+            alt={`Portfolio film ${number}`}
             style={{
               width: "100%",
               height: "100%",
@@ -218,17 +217,7 @@ function PortfolioVideo({ youtubeId, title, number, ratio }: {
             </span>
           </div>
 
-          {/* Film label */}
-          <span className="absolute left-4 top-4 text-[0.62rem] tracking-[0.2em] text-foreground/65 sm:left-7 sm:top-6">
-            FILM {number}
-          </span>
         </div>
-      </div>
-
-      {/* Title below video */}
-      <div className="mt-4 flex items-center gap-4 px-1">
-        <span className="text-[0.6rem] tracking-[0.2em] text-muted-foreground">{number}</span>
-        <span className="text-[0.75rem] uppercase tracking-[0.15em] text-foreground/70">{title}</span>
       </div>
     </article>
   );
@@ -263,7 +252,7 @@ function Portfolio() {
         <EdgeLines side="left" />
         <EdgeLines side="right" />
         <div className="relative z-10 flex flex-col items-center px-6 pt-16 text-center">
-          <span className="mb-3 text-[0.68rem] uppercase tracking-[0.42em] text-primary">footage by</span>
+          <span className="mb-3 text-[0.72rem] font-bold uppercase tracking-[0.38em] text-primary">footage by</span>
           <h1 className="font-display text-5xl font-medium leading-none sm:text-7xl lg:text-8xl">Cheyne Hoesli</h1>
           <p className="mt-4 font-display text-2xl italic text-foreground/80 sm:text-3xl">pure cinema.</p>
         </div>
@@ -290,7 +279,6 @@ function Portfolio() {
               <PortfolioVideo
                 key={film.number}
                 youtubeId={film.youtubeId}
-                title={film.title}
                 number={film.number}
                 ratio={film.ratio as "16/9" | "4/3"}
               />
@@ -313,7 +301,7 @@ function Portfolio() {
             <div className="mt-10 flex items-center gap-4"><span className="h-px w-14 bg-primary" /><span className="text-[0.62rem] uppercase tracking-[0.24em] text-muted-foreground">Based out west</span></div>
           </div>
           <figure className="relative mx-auto max-w-md md:max-w-none">
-            <img src={aboutImage} alt="Cinematographer Cheyne Hoesli working behind the camera" width={1024} height={1408} loading="lazy" className="aspect-[4/5] w-full object-cover grayscale" />
+            <img src={aboutAsset.url} alt="Cinematographer Cheyne Hoesli working behind the camera" width={1024} height={1408} loading="lazy" className="aspect-[4/5] w-full object-cover grayscale" />
             <figcaption className="absolute -bottom-5 -left-4 bg-primary px-4 py-3 text-[0.6rem] uppercase tracking-[0.2em] text-primary-foreground sm:-left-7">Create what moves you.</figcaption>
           </figure>
         </div>
