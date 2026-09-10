@@ -216,8 +216,8 @@ function PortfolioVideo({ youtubeId, number, ratio, videoTitle }: {
 
           {/* Optional title overlay */}
           {videoTitle && (
-            <div className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-6 pb-5 pt-10 text-center">
-              <span className="text-[0.72rem] font-medium uppercase tracking-[0.18em] text-primary">{videoTitle}</span>
+            <div className="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-black/90 via-black/60 to-transparent px-6 pb-5 pt-12 text-center">
+              <span className="text-[0.72rem] font-medium tracking-[0.12em] text-primary">{videoTitle}</span>
             </div>
           )}
 
