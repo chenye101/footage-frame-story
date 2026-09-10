@@ -168,6 +168,7 @@ function PortfolioVideo({ youtubeId, number, ratio, videoTitle }: {
             width: "100%",
             height: "100%",
             border: "none",
+            zIndex: 0,
           }}
         />
 
@@ -178,6 +179,7 @@ function PortfolioVideo({ youtubeId, number, ratio, videoTitle }: {
           style={{
             position: "absolute",
             inset: 0,
+            zIndex: 1,
             transition: "opacity 0.4s ease",
             cursor: "pointer",
           }}
