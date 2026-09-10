@@ -285,7 +285,7 @@ function Portfolio() {
                 youtubeId={film.youtubeId}
                 number={film.number}
                 ratio={film.ratio as "16/9" | "4/3"}
-                videoTitle={film.title}
+                videoTitle={film.number === "06" ? film.title : undefined}
               />
             ))}
           </div>
