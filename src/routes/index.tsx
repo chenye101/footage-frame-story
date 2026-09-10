@@ -168,6 +168,7 @@ function PortfolioVideo({ youtubeId, number, ratio, videoTitle }: {
             width: "100%",
             height: "100%",
             border: "none",
+            zIndex: 0,
           }}
         />
 
@@ -178,6 +179,7 @@ function PortfolioVideo({ youtubeId, number, ratio, videoTitle }: {
           style={{
             position: "absolute",
             inset: 0,
+            zIndex: 1,
             transition: "opacity 0.4s ease",
             cursor: "pointer",
           }}
@@ -212,12 +214,14 @@ function PortfolioVideo({ youtubeId, number, ratio, videoTitle }: {
             </span>
           </div>
 
+          {/* Optional title overlay */}
+          {videoTitle && (
+            <div className="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-black/90 via-black/60 to-transparent px-6 pb-5 pt-12 text-center">
+              <span className="text-[0.72rem] font-medium tracking-[0.12em] text-primary">{videoTitle}</span>
+            </div>
+          )}
+
         </div>
-        {videoTitle && (
-          <div className="mt-5 text-center">
-            <span className="text-[0.72rem] font-medium uppercase tracking-[0.18em] text-primary">{videoTitle}</span>
-          </div>
-        )}
       </div>
     </article>
   );
@@ -281,7 +285,7 @@ function Portfolio() {
                 youtubeId={film.youtubeId}
                 number={film.number}
                 ratio={film.ratio as "16/9" | "4/3"}
-                videoTitle={film.title}
+                videoTitle={film.number === "06" ? film.title : undefined}
               />
             ))}
           </div>
