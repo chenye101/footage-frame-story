@@ -30,7 +30,7 @@ const films = [
   { number: "03", title: "After Dark / Music",   youtubeId: "KSOsH5D4me4", ratio: "16/9" },
   { number: "04", title: "Open Road / Travel",   youtubeId: "XvXk3DpMs8c", ratio: "4/3" },
   { number: "05", title: "Made by Hand / Brand", youtubeId: "tlOJiFOR1m4", ratio: "16/9" },
-  { number: "06", title: "In the Moment / Event",youtubeId: "9W7timoYmpI", ratio: "4/3" },
+  { number: "06", youtubeId: "Kb9u7bqA1qM", ratio: "4/3", title: "SOUTH NORTE - Social Commercial" },
 ];
 
 const services = [
@@ -118,10 +118,11 @@ function HeroVideo() {
 
 
 // Portfolio video player using YouTube embed with Plyr-style custom overlay
-function PortfolioVideo({ youtubeId, number, ratio }: {
+function PortfolioVideo({ youtubeId, number, ratio, videoTitle }: {
   youtubeId: string;
   number: string;
   ratio: "16/9" | "4/3";
+  videoTitle?: string;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -212,6 +213,11 @@ function PortfolioVideo({ youtubeId, number, ratio }: {
           </div>
 
         </div>
+        {videoTitle && (
+          <div className="mt-5 text-center">
+            <span className="text-[0.72rem] font-medium uppercase tracking-[0.18em] text-primary">{videoTitle}</span>
+          </div>
+        )}
       </div>
     </article>
   );
@@ -263,7 +269,7 @@ function Portfolio() {
         <div className="mx-auto max-w-[1240px]">
           <div className="mb-14 flex items-end justify-between border-b border-border pb-6 sm:mb-20">
             <div>
-              <span className="section-label">Selected work · 2024—26</span>
+              <span className="section-label">some of my favorite videos</span>
               <h2 className="mt-3 font-display text-3xl tracking-[0.16em] sm:text-5xl">PORTFOLIO.</h2>
             </div>
             <Mark />
@@ -275,9 +281,13 @@ function Portfolio() {
                 youtubeId={film.youtubeId}
                 number={film.number}
                 ratio={film.ratio as "16/9" | "4/3"}
+                videoTitle={film.title}
               />
             ))}
           </div>
+          <p className="mt-16 text-center text-[0.72rem] uppercase tracking-[0.18em] text-muted-foreground">
+            find more on my socials <span className="text-primary">@footagebycheyne</span>
+          </p>
         </div>
       </section>
 
