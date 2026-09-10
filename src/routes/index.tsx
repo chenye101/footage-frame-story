@@ -23,8 +23,6 @@ export const Route = createFileRoute("/")({
   component: Portfolio,
 });
 
-// Video IDs extracted from YouTube URLs
-const HERO_VIDEO_ID = "g8MqqhLH0kE";
 
 const films = [
   { number: "01", title: "Motion / Automotive", youtubeId: "uL3k2z38fk4", ratio: "16/9" },
@@ -78,35 +76,30 @@ function EdgeLines({ side }: { side: "left" | "right" }) {
   );
 }
 
-// Muted looping hero video (4:3 aspect ratio, cropped to fill 16:9 viewport)
+// Muted looping hero video (Vimeo background player, cropped to fill viewport)
 function HeroVideo() {
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* 
-        The hero clip is 4:3. We need it to fill a widescreen viewport.
-        Strategy: make the iframe taller than the container and center it.
-        We use a wrapper that's wider than 100% to simulate cover behavior.
+      {/*
+        Vimeo background player fills the viewport while preserving a 16:9 ratio.
+        The wrapper is sized with min-width/height to simulate object-fit: cover.
       */}
       <div
         style={{
           position: "absolute",
           top: "50%",
           left: "50%",
-          // 4:3 video needs to be wider to fill 16:9 space
-          // width = height * (16/9) / (4/3) = height * 1.333
-          // To fill height: set width to 177.78% of height equivalent
-          // Easiest: make it very large and center it
-          width: "177.78vh",   // 16:9 of viewport height
-          height: "133.33vh",  // 4:3 needs more height to fill width
-          minWidth: "133.33vw",
+          width: "100vw",
+          height: "56.25vw",
+          minWidth: "177.78vh",
           minHeight: "100vh",
           transform: "translate(-50%, -50%)",
           pointerEvents: "none",
         }}
       >
         <iframe
-          src={`https://www.youtube.com/embed/${HERO_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${HERO_VIDEO_ID}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=1`}
-          allow="autoplay; encrypted-media"
+          src="https://player.vimeo.com/video/1225492998?background=1&autoplay=1&loop=1&muted=1"
+          allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
           title="Hero background video"
           style={{
@@ -122,6 +115,7 @@ function HeroVideo() {
     </div>
   );
 }
+
 
 // Portfolio video player using YouTube embed with Plyr-style custom overlay
 function PortfolioVideo({ youtubeId, number, ratio }: {
