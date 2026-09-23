@@ -239,7 +239,7 @@ function Portfolio() {
             footagebycheyne<span className="text-primary">.</span>
           </a>
           <div className="hidden items-center gap-9 md:flex">
-            {['Home', 'Portfolio', 'About', 'Services', 'Contact'].map((item) => (
+        {['Home', 'Portfolio', 'About', 'Services', 'Pricing', 'Contact'].map((item) => (
               <a key={item} href={`#${item.toLowerCase()}`} className="text-[0.7rem] uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-primary">
                 {item}
               </a>
