@@ -256,9 +256,9 @@ function Portfolio() {
         <EdgeLines side="left" />
         <EdgeLines side="right" />
         <div className="relative z-10 flex flex-col items-center px-6 pt-16 text-center">
-          <span className="mb-3 text-[0.72rem] font-bold uppercase tracking-[0.38em] text-primary">footage by</span>
-<h1 className="font-display text-5xl font-bold leading-none tracking-tight sm:text-7xl lg:text-9xl">
-          <p className="mt-4 font-display text-2xl italic text-foreground/80 sm:text-3xl">anything can be cinematic.</p>
+        <span className="mb-3 text-[0.72rem] font-bold uppercase tracking-[0.38em] text-primary">footage by</span>
+<h1 className="font-display text-5xl font-bold italic leading-none tracking-tight sm:text-7xl lg:text-9xl">Cheyne Hoesli</h1>
+<p className="mt-4 font-display text-2xl italic text-foreground/80 sm:text-3xl">anything can be cinematic.</p>
         </div>
         <a href="#portfolio" aria-label="Scroll to portfolio" className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3 text-[0.58rem] uppercase tracking-[0.3em] text-muted-foreground">
           Scroll
@@ -334,7 +334,80 @@ function Portfolio() {
           </div>
         </div>
       </section>
+      
+{/* ── PRICING ── */}
+<section id="pricing" className="section-shell scroll-mt-20 border-t border-border relative">
+  <EdgeLines side="left" />
+  <EdgeLines side="right" />
+  <div className="mx-auto max-w-[1240px]">
+    <span className="section-label">pricing</span>
+    <h2 className="section-title">Simple Pricing.</h2>
+    <div className="mt-14 grid border-x border-b border-border md:grid-cols-3 md:divide-x md:divide-border">
 
+      {/* Video Production */}
+      <article className="flex flex-col border-t-2 border-service-gold bg-card p-8 sm:p-10">
+        <span className="text-[0.65rem] tracking-[0.2em] text-muted-foreground">01</span>
+        <h3 className="mt-10 font-display text-2xl sm:text-3xl">Video Production</h3>
+        <p className="mt-3 text-[0.72rem] leading-5 text-muted-foreground">Brand films, social content, commercials — one cinematic standard across all of it.</p>
+        <ul className="mt-8 space-y-6 border-t border-border pt-8">
+          <li>
+            <div className="flex items-baseline justify-between">
+              <span className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-foreground">Single Commercial</span>
+              <span className="text-sm text-primary">$500</span>
+            </div>
+            <p className="mt-1 text-[0.68rem] leading-5 text-muted-foreground">1 primary video (15–45 sec), 2 rounds of revisions. Raw B-roll available at $50/clip.</p>
+          </li>
+          <li>
+            <div className="flex items-baseline justify-between">
+              <span className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-foreground">Content Duo</span>
+              <span className="text-sm text-primary">$950</span>
+            </div>
+            <p className="mt-1 text-[0.68rem] leading-5 text-muted-foreground">2 primary videos, 2 rounds of revisions each, 2 complimentary B-roll clips. Ideal for two distinct calendar beats.</p>
+          </li>
+          <li>
+            <div className="flex items-baseline justify-between">
+              <span className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-foreground">2-Month Bundle</span>
+              <span className="text-sm text-primary">$1,300</span>
+            </div>
+            <p className="mt-1 text-[0.68rem] leading-5 text-muted-foreground">3 primary videos across 2 months, 4 complimentary B-roll clips. Best for seasonal campaigns.</p>
+          </li>
+        </ul>
+        <div className="mt-6 border-t border-border pt-6">
+          <div className="flex items-baseline justify-between">
+            <span className="text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground">Paid Ad Audio Licensing</span>
+            <span className="text-[0.72rem] text-primary">+$150/video</span>
+          </div>
+          <p className="mt-1 text-[0.65rem] leading-5 text-muted-foreground">Royalty-free or custom music licensed for paid ads.</p>
+        </div>
+        <a href="#contact" className="mt-auto pt-10 text-[0.68rem] uppercase tracking-[0.18em] text-primary underline-offset-8 hover:underline">Book a project ↗</a>
+      </article>
+
+      {/* Event Coverage */}
+      <article className="flex flex-col border-t-2 border-service-pink bg-card p-8 sm:p-10">
+        <span className="text-[0.65rem] tracking-[0.2em] text-muted-foreground">02</span>
+        <h3 className="mt-10 font-display text-2xl sm:text-3xl">Event Coverage</h3>
+        <p className="mt-3 text-[0.72rem] leading-5 text-muted-foreground">Every event is different. Pricing is built around your specific scope, location, and deliverables.</p>
+        <ul className="mt-8 space-y-4 border-t border-border pt-8">
+          <li className="text-[0.68rem] leading-6 text-muted-foreground">— Duration & location of the event</li>
+          <li className="text-[0.68rem] leading-6 text-muted-foreground">— Number of deliverables</li>
+          <li className="text-[0.68rem] leading-6 text-muted-foreground">— Turnaround time required</li>
+          <li className="text-[0.68rem] leading-6 text-muted-foreground">— Any specific equipment needs</li>
+        </ul>
+        <a href="#contact" className="mt-auto pt-10 text-[0.68rem] uppercase tracking-[0.18em] text-primary underline-offset-8 hover:underline">Inquire for pricing ↗</a>
+      </article>
+
+      {/* Custom Projects */}
+      <article className="flex flex-col border-t-2 border-service-blue bg-card p-8 sm:p-10">
+        <span className="text-[0.65rem] tracking-[0.2em] text-muted-foreground">03</span>
+        <h3 className="mt-10 font-display text-2xl sm:text-3xl">Something Else?</h3>
+        <p className="mt-3 text-[0.72rem] leading-5 text-muted-foreground">Anything can be cinematic. If your project doesn't fit a package, reach out — custom scopes are always on the table.</p>
+        <a href="#contact" className="mt-auto pt-10 text-[0.68rem] uppercase tracking-[0.18em] text-primary underline-offset-8 hover:underline">Let's talk ↗</a>
+      </article>
+
+    </div>
+  </div>
+</section>
+      
       {/* ── CONTACT ── */}
       <section id="contact" className="section-shell scroll-mt-20 border-t border-border bg-surface relative">
         <EdgeLines side="left" />
