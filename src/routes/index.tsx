@@ -36,24 +36,30 @@ const films = [
 const services = [
   {
     number: "01",
-    title: "Brand & Commercial",
+    title: "Video Production",
     description:
       "Cinematic brand videos and advertisements that make your product feel like a moment worth remembering.",
     accent: "border-service-gold",
+    link: "#pricing",
+    linkText: "See pricing ↗",
   },
   {
     number: "02",
-    title: "Social Media Content",
-    description:
-      "Short form content built for TikTok, Instagram, and beyond. Scroll-stopping visuals that actually convert.",
-    accent: "border-service-blue",
-  },
-  {
-    number: "03",
     title: "Event Coverage",
     description:
       "Real moments, captured beautifully. Whether it's an intimate gathering or a large scale production.",
     accent: "border-service-pink",
+    link: "#pricing",
+    linkText: "See pricing ↗",
+  },
+  {
+    number: "03",
+    title: "Something Else?",
+    description:
+      "Anything can be cinematic. If your project doesn't fit a package, reach out — custom scopes are always on the table.",
+    accent: "border-service-blue",
+    link: "#contact",
+    linkText: "Let's talk ↗",
   },
 ];
 
@@ -328,7 +334,7 @@ function Portfolio() {
                 <span className="text-[0.65rem] tracking-[0.2em] text-muted-foreground">{service.number}</span>
                 <h3 className="mt-10 font-display text-2xl sm:text-3xl">{service.title}</h3>
                 <p className="mt-5 leading-7 text-muted-foreground">{service.description}</p>
-                <a href="#contact" className="mt-auto pt-10 text-[0.68rem] uppercase tracking-[0.18em] text-primary underline-offset-8 hover:underline">Inquire for pricing ↗</a>
+               <a href={service.link} className="mt-auto pt-10 text-[0.68rem] uppercase tracking-[0.18em] text-primary underline-offset-8 hover:underline">{service.linkText}</a>
               </article>
             ))}
           </div>
@@ -341,7 +347,7 @@ function Portfolio() {
   <EdgeLines side="right" />
   <div className="mx-auto max-w-[1240px]">
     <span className="section-label">pricing</span>
-    <h2 className="section-title">Simple Pricing.</h2>
+<h2 className="section-title">How Much?</h2>
     <div className="mt-14 grid border-x border-b border-border md:grid-cols-3 md:divide-x md:divide-border">
 
       {/* Video Production */}
